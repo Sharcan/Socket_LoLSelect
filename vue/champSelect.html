@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/@mdi/font@4.x/css/materialdesignicons.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/vuetify@2.x/dist/vuetify.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="champSelect.css">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, minimal-ui">
+</head>
+<body>
+    <div id="app">
+        <v-app>
+            <v-content>
+
+                <v-container fluid class="main">
+                    <!-- 
+                    <div class="listChamp" style="width: 90%;">
+                        <v-container class="pl-auto">
+                            <v-item-group>
+                                <v-row>
+                                    <v-col v-for="(champ, c) in champions" :key="c" cols="12" lg="3">
+                                        <v-img src="champ/Aatrox.jpg" width="100" height="100"></v-img>
+                                    </v-col>
+                                </v-row>
+                            </v-item-group>
+                        </v-container>
+                    </div>-->
+
+                    <v-row class="justify-space-around flex-row">
+                        <h1 class="white--text display-1" v-text="messageTop"></h1>
+                    </v-row>
+                    <v-row class="flex-column align-center">
+                        <h1 class="display-1 white--text" v-text="timer"></h1>
+
+                        <div class="w3-light-grey progressBarElement">
+                            <div class="w3-blue" style="height:10px;" id="progressBar"></div>
+                        </div>
+
+                    </v-row>
+
+                    <v-row class="flex-row justify-space-between mt-10 bottom">
+
+                        <v-list disabled color="transparent">
+                            <h1 class="display-2 name text-center white--text">Team Bleu</h1>
+                            <v-list-item-group>
+                                <v-list-item v-for="(player, p) in listLeft" :key="p" class="my-10 playerTurn">
+                                    <v-list-item-icon>
+                                        <v-avatar size="75"><v-img src="champ/Aatrox.jpg" class="imgAvatar"></v-img></v-avatar>
+                                    </v-list-item-icon>
+                                    <v-list-item-content>
+                                        <v-list-item-title class="headline name white--text">
+                                            Choix en cours
+                                        </v-list-item-title>
+                                        <v-list-item-subtitle class="subtitle-1 name white--text">
+                                            {{ player }}
+                                        </v-list-item-subtitle>
+                                    </v-list-item-content>
+                                </v-list-item>
+                            </v-list-item-group>
+                        </v-list>
+
+
+                        
+                        <v-row class="flex-row listChamp">
+                            <v-col v-for="(champ, c) in champions" :key="c" cols="12" lg="3">
+                                
+                                <v-img src="champ/Aatrox.jpg" width="100" height="100" class="imgChamp"></v-img>
+                                
+                            </v-col>
+                        </v-row>
+                        
+
+
+                        <v-list disabled color="transparent">
+                            <h1 class="display-2 name text-center white--text">Team Rouge</h1>
+                            <v-list-item-group>
+                                <v-list-item v-for="(player, p) in listRight" :key="p" class="my-10">
+                                    <v-list-item-content>
+                                        <v-list-item-title class="headline name text-right white--text">
+                                            Choix en cours
+                                        </v-list-item-title>
+                                        <v-list-item-subtitle class="subtitle-1 name text-right white--text">
+                                            {{ player }}
+                                        </v-list-item-subtitle>
+                                    </v-list-item-content>
+                                    <v-list-item-icon>
+                                        <v-avatar size="75"><v-img src="champ/Aatrox.jpg" class="imgAvatar"></v-img></v-avatar>
+                                    </v-list-item-icon>
+                                </v-list-item>
+                            </v-list-item-group>
+                        </v-list>
+
+                    </v-row>
+
+                    <v-row class="justify-center mt-12">
+                        <v-btn x-large color="primary" dark>Verrouiller</v-btn>
+                    </v-row>
+
+                </v-container>
+            </v-content>
+        </v-app>
+    </div>
+
+    <!-- <audio autoplay id='backgroundSound'>
+        <source src="frejlord.mp3" type="audio/mpeg">
+    </audio>
+
+    <script>
+        document.getElementById('backgroundSound').volume = 0.5;
+    </script> -->
+
+
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.x/dist/vue.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vuetify@2.x/dist/vuetify.js"></script>
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="champSelect.js"></script>
+</body>
+</html>
