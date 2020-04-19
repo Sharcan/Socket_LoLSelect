@@ -1,1 +1,1 @@
-# Utilisation Socket sur le team de LoL
+# Utilisation Socket sur le thème de LoL
