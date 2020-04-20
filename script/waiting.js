@@ -18,7 +18,7 @@ var app = new Vue({
         items: ['Red Side', 'Blue Side'],
 
         timer: 5,
-        maxPlayer: 4,
+        maxPlayer: 2,
 
     },
 

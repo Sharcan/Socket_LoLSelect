@@ -15,78 +15,83 @@
             listLeft: [],
             listRight: [],
 
-            champions: [
-                {
-                    id: "1",
-                    avatar: "champ/Aatrox.jpg",
-                    name: "Aatrox"
-                },
-                {
-                    id: "1",
-                    avatar: "champ/Aatrox.jpg",
-                    name: "Aatrox"
-                },
-                {
-                    id: "1",
-                    avatar: "champ/Aatrox.jpg",
-                    name: "Aatrox"
-                },
-                {
-                    id: "1",
-                    avatar: "champ/Aatrox.jpg",
-                    name: "Aatrox"
-                },
-                {
-                    id: "1",
-                    avatar: "champ/Aatrox.jpg",
-                    name: "Aatrox"
-                },
-                {
-                    id: "1",
-                    avatar: "champ/Aatrox.jpg",
-                    name: "Aatrox"
-                },
-                {
-                    id: "1",
-                    avatar: "champ/Aatrox.jpg",
-                    name: "Aatrox"
-                },
-                {
-                    id: "1",
-                    avatar: "champ/Aatrox.jpg",
-                    name: "Aatrox"
-                },
-                {
-                    id: "1",
-                    avatar: "champ/Aatrox.jpg",
-                    name: "Aatrox"
-                },
-                {
-                    id: "1",
-                    avatar: "champ/Aatrox.jpg",
-                    name: "Aatrox"
-                },
-                {
-                    id: "1",
-                    avatar: "champ/Aatrox.jpg",
-                    name: "Aatrox"
-                },
-                {
-                    id: "1",
-                    avatar: "champ/Aatrox.jpg",
-                    name: "Aatrox"
-                },
-            ],
+            // champions: [
+            //     {
+            //         id: "1",
+            //         avatar: "champ/Aatrox.jpg",
+            //         name: "Aatrox"
+            //     },
+            //     {
+            //         id: "1",
+            //         avatar: "champ/Aatrox.jpg",
+            //         name: "Aatrox"
+            //     },
+            //     {
+            //         id: "1",
+            //         avatar: "champ/Aatrox.jpg",
+            //         name: "Aatrox"
+            //     },
+            //     {
+            //         id: "1",
+            //         avatar: "champ/Aatrox.jpg",
+            //         name: "Aatrox"
+            //     },
+            //     {
+            //         id: "1",
+            //         avatar: "champ/Aatrox.jpg",
+            //         name: "Aatrox"
+            //     },
+            //     {
+            //         id: "1",
+            //         avatar: "champ/Aatrox.jpg",
+            //         name: "Aatrox"
+            //     },
+            //     {
+            //         id: "1",
+            //         avatar: "champ/Aatrox.jpg",
+            //         name: "Aatrox"
+            //     },
+            //     {
+            //         id: "1",
+            //         avatar: "champ/Aatrox.jpg",
+            //         name: "Aatrox"
+            //     },
+            //     {
+            //         id: "1",
+            //         avatar: "champ/Aatrox.jpg",
+            //         name: "Aatrox"
+            //     },
+            //     {
+            //         id: "1",
+            //         avatar: "champ/Aatrox.jpg",
+            //         name: "Aatrox"
+            //     },
+            //     {
+            //         id: "1",
+            //         avatar: "champ/Aatrox.jpg",
+            //         name: "Aatrox"
+            //     },
+            //     {
+            //         id: "1",
+            //         avatar: "champ/Aatrox.jpg",
+            //         name: "Aatrox"
+            //     },
+            // ],
+            displayChamp: false,
+            champions: [],
+
 
             timer: 0,
             valueProgress: 1,
+
+            
             
         },
 
         methods: {
             
             waitingAll: function() {
-                this.messageTop = 'En attentes des joueurs';
+                
                 if(this.timer === 0) {
                     
 
@@ -98,18 +103,40 @@
 
                     document.getElementById('progressBar').classList.remove('reduceProgressBar');
                     clearInterval(this.waitingOther);
+
+                    this.displayChamp = true;
                 }
                 else {
                     this.timer--;
                 }
             },
 
+            getAllChamp: function() {
+
+                var myInit = { method: 'GET',
+                mode: 'cors',
+                cache: 'default' };
+
+                fetch('http://ddragon.leagueoflegends.com/cdn/10.8.1/data/fr_FR/champion.json', myInit)
+                    .then((response) => response.json())
+                    .then((data) => {
+                        const listChamp = Object.values(data.data);
+                        let index = 0;
+                        listChamp.forEach(champion => {
+
+                            this.champions.push({index: index, name: champion.name, avatar: 'http://ddragon.leagueoflegends.com/cdn/10.8.1/img/champion/' + champion.image.full});
+                            index++;
+                        });
+
+                    });
+            }
 
         },
 
         created: function() {
             socket.on('champSelect', () => {
                 
+                this.getAllChamp();
                 
                 let pseudo = sessionStorage.getItem('pseudo');
                 let team = sessionStorage.getItem('team');
@@ -131,7 +158,8 @@
                     }
                 });
                 
-                this.timer = 5;
+                this.timer = 10;
+                this.messageTop = 'En attentes des joueurs';
                 document.getElementById('progressBar').classList.add('reduceProgressBar');
                 this.waitingOther = setInterval(() => {
                    this.waitingAll();
