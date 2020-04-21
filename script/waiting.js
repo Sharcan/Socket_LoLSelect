@@ -18,7 +18,7 @@ var app = new Vue({
         items: ['Red Side', 'Blue Side'],
 
         timer: 5,
-        maxPlayer: 2,
+        maxPlayer: 4,
 
     },
 
@@ -121,9 +121,6 @@ var app = new Vue({
                     this.timerFunction();
                 }, 1000);
 
-                // setTimeout(() => {
-                //     window.location.href = 'http://localhost:8080/champSelect';
-                // }, 10000);
             }
             else{
                 this.showBeginMessage = false;
@@ -144,8 +141,12 @@ var app = new Vue({
 
             sessionStorage.setItem('pseudo', content.pseudo);
             sessionStorage.setItem('team', content.team);
-            localStorage.setItem('accounts', JSON.stringify(content.allAccount));
+            ;
 
+        });
+
+        socket.on('saveLocal', (content) => {
+            localStorage.setItem('accounts', JSON.stringify(content));
         });
         
     },

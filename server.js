@@ -29,6 +29,10 @@ app.get('/champSelect', (req, res) => {
 //Liste des comptes en attentes
 let accountCreated = [];
 
+let allL = 0;
+let allR = 0;
+
+let loadedPlayer = 0;
 
 
 io.on('connection', (socket) => {
@@ -65,8 +69,10 @@ io.on('connection', (socket) => {
             socket.emit('listAccount', accountCreated);
             socket.broadcast.emit('listAccount', accountCreated);
 
-            socket.emit('saveSession', {pseudo: socket.pseudo, team: socket.team, allAccount: accountCreated});
-
+            socket.emit('saveSession', {pseudo: socket.pseudo, team: socket.team});
+           
+            socket.emit('saveLocal', accountCreated);
+            socket.broadcast.emit('saveLocal', accountCreated);
 
         }
 
@@ -81,8 +87,10 @@ io.on('connection', (socket) => {
             socket.emit('listAccount', accountCreated);
             socket.broadcast.emit('listAccount', accountCreated);
 
-            socket.emit('saveSession', {pseudo: socket.pseudo, team: socket.team, allAccount: accountCreated});
-
+            socket.emit('saveSession', {pseudo: socket.pseudo, team: socket.team});
+            
+            socket.emit('saveLocal', accountCreated);
+            socket.broadcast.emit('saveLocal', accountCreated);
         }
         
         else if(check === 2 && content.team === 'Blue Side'){
@@ -96,8 +104,10 @@ io.on('connection', (socket) => {
             socket.emit('listAccount', accountCreated);
             socket.broadcast.emit('listAccount', accountCreated);
 
-            socket.emit('saveSession', {pseudo: socket.pseudo, team: socket.team, allAccount: accountCreated});
-
+            socket.emit('saveSession', {pseudo: socket.pseudo, team: socket.team});
+            
+            socket.emit('saveLocal', accountCreated);
+            socket.broadcast.emit('saveLocal', accountCreated);
         }
 
         else{
@@ -112,30 +122,63 @@ io.on('connection', (socket) => {
 
     socket.emit('champSelect');
 
-    socket.on('launchSelection', (players, listL, listR) => {
-        
-        const nbL = listL.length;
-        const nbR = listR.length;
-        let allL = 0;
-        let allR = 0;
+    
+    socket.on('loaded', (players)=> {
+        loadedPlayer++;
+        if(loadedPlayer === players.length){
+            socket.emit('allLoaded');
+            socket.broadcast.emit('allLoaded');
+        }
+    });
 
-        while(allL != nbL || allR != nbR){
-            if(allL === allR){
-                socket.emit('yourTurn', listL[allL]);
-                socket.broadcast.emit('yourTurn', listL[allL]);
-                    
-                 allL++;
-            }
-            else if(allL > allR){
-                socket.emit('yourTurn', listR[allR]);
-                socket.broadcast.emit('yourTurn', listR[allR]);
+    socket.on('launchSelection', (listL, listR) => {
+        _launchSelection(listL, listR, allL, allR);
 
-                allR++;
-            }
+    });
+
+
+    socket.on('finishTurn', (listL, listR, index) => {
+        if(index.team === 'allL'){
+            allL = index.index;
+            _launchSelection(listL, listR, index.index, allR);
+        }
+        else if(index.team === 'allR'){
+            allR = index.index;
+            _launchSelection(listL, listR, allL, index.index);
         }
 
-    })
+        
+    });
 
+    function _launchSelection(listL, listR, allL, allR) {
+
+        const nbL = listL.length;
+        const nbR = listR.length;
+    
+        if(allL === nbL && allR === nbR){
+        }
+        else {
+            if(allL === allR){
+                socket.emit('yourTurn', listL[allL], {team: 'allL', index: allL});
+                socket.broadcast.emit('yourTurn', listL[allL], {team: 'allL', index: allL});
+            }
+            else if(allL > allR){
+                socket.emit('yourTurn', listR[allR], {team: 'allR', index: allR});
+                socket.broadcast.emit('yourTurn', listR[allR], {team: 'allR', index: allR});
+            }
+        }
+    }
+
+
+    socket.on('thinkChamp', (champion, account) => {
+        socket.emit('thinkChamp', champion, account);
+        socket.broadcast.emit('thinkChamp', champion, account);
+    });
+
+    socket.on('confirmChamp', (champion, account) => {
+        socket.broadcast.emit('confirmChamp', champion, account);
+        socket.emit('confirmChamp', champion, account);
+    })
 
 });
 
