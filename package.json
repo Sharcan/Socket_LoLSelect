@@ -4,7 +4,7 @@
   "description": "Reproduction lol selection",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon server.js"
+    "start": "node server.js"
   },
   "author": "Nicolas Brazzolotto",
   "license": "ISC",
