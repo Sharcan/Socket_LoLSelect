@@ -25,6 +25,12 @@ app.get('/champSelect', (req, res) => {
 
 });
 
+app.get('/game', (req, res) => {
+
+    res.sendFile(__dirname + '/vue/game.html');
+
+});
+
 
 //Liste des comptes en attentes
 let accountCreated = [];
@@ -156,6 +162,8 @@ io.on('connection', (socket) => {
         const nbR = listR.length;
     
         if(allL === nbL && allR === nbR){
+            socket.broadcast.emit('FINISH');
+            socket.emit('FINISH');
         }
         else {
             if(allL === allR){

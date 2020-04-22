@@ -18,13 +18,14 @@ var app = new Vue({
         items: ['Red Side', 'Blue Side'],
 
         timer: 5,
-        maxPlayer: 4,
+        maxPlayer: 2,
 
     },
 
     methods: {
 
         addPseudo: function() {
+            this.playSoundInscription();
 
             // ON REGARDE TAILLE DE LA LISTE
             if(this.accounts.length > 0) {
@@ -105,6 +106,11 @@ var app = new Vue({
             }
         },
 
+
+        playSoundInscription: function() {
+            let inscriptionSound = document.getElementById('validInscription');
+            inscriptionSound.play();
+        }
     },
 
     created: function() {

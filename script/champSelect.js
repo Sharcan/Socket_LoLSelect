@@ -109,8 +109,6 @@ window.addEventListener("DOMContentLoaded", (e) => {
 
 
             playerSelectionFunction: function() {
-    
-                console.log(this.selectedChampion)
 
                 socket.emit('confirmChamp', this.selectedChampion, this.account);
             },
@@ -122,13 +120,19 @@ window.addEventListener("DOMContentLoaded", (e) => {
 
             thisChamp: function(id, name, avatar) {
 
+                let selectChamp = document.getElementById('selectChamp');
+                selectChamp.play();
+
                 this.selectedChampion = {
                     id: id,
                     name: name,
                     avatar: avatar
                 };
                 socket.emit('thinkChamp', this.selectedChampion, this.account);
-            }
+            },
+
+
+            
 
         },
 
@@ -241,6 +245,14 @@ window.addEventListener("DOMContentLoaded", (e) => {
                 
             });
 
+
+
+            socket.on('FINISH', ()=> {
+                this.messageTop = "Lancement de la partie";
+                setTimeout(() => {
+                    window.location.href = 'http://192.168.1.129:8080/game';
+                }, 2000);
+            });
         },
 
 
