@@ -1,7 +1,7 @@
 {
   "name": "lol_chamselect",
-  "version": "0.0.1",
-  "description": "Test Socket gestion",
+  "version": "0.1.0",
+  "description": "Reproduction lol selection",
   "main": "index.js",
   "scripts": {
     "start": "nodemon server.js"
