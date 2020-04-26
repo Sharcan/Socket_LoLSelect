@@ -20,6 +20,7 @@ var app = new Vue({
         timer: 5,
         maxPlayer: 2,
 
+        soundTime: document.getElementById('timeSound')
     },
 
     methods: {
@@ -102,6 +103,7 @@ var app = new Vue({
                 window.location.href = 'http://192.168.1.129:8080/champSelect';
             }
             else {
+                this.soundTime.play();
                 this.timer--;
             }
         },

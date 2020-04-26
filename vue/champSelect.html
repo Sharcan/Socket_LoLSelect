@@ -38,7 +38,7 @@
                             <v-list-item-group>
                                 <v-list-item v-for="(player, pl) in listLeft" :key="pl" class="my-10" :class="{playerTurn: player.id == playerSelection}">
                                     <v-list-item-icon>
-                                        <v-avatar size="75"><v-img v-if="listLeft[pl].avatar" :src="listLeft[pl].avatar" class="imgAvatar"></v-img></v-avatar>
+                                        <v-avatar size="75"><v-img v-if="listLeft[pl].avatar" :src="listLeft[pl].avatar" class="imgAvatar"></v-img></v-avatar>                                        
                                     </v-list-item-icon>
                                     <v-list-item-content>
                                         <v-list-item-title class="headline name white--text">
@@ -104,6 +104,13 @@
         <source src="click.mp3" type="audio/mpeg">
     </audio>
 
+    <audio id="timeSound">
+        <source src="time.mp3" type="audio/mpeg">
+    </audio>
+
+    <audio id="validInscription">
+        <source src="inscription.mp3" type="audio/mpeg">
+    </audio>
     <script>
         document.getElementById('backgroundSound').volume = 0.5;
     </script>
