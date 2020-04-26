@@ -162,6 +162,7 @@ io.on('connection', (socket) => {
         const nbR = listR.length;
     
         if(allL === nbL && allR === nbR){
+            console.log('FINISH')
             socket.broadcast.emit('FINISH');
             socket.emit('FINISH');
         }
@@ -173,6 +174,9 @@ io.on('connection', (socket) => {
             else if(allL > allR){
                 socket.emit('yourTurn', listR[allR], {team: 'allR', index: allR});
                 socket.broadcast.emit('yourTurn', listR[allR], {team: 'allR', index: allR});
+            }
+            else{
+                console.log('FINISH');
             }
         }
     }
@@ -224,3 +228,4 @@ function _checkTeam(){
 
 
 server.listen(8080, '0.0.0.0' ,() => {console.log('Server started at port : 8080')});
+

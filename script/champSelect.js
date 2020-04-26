@@ -26,8 +26,8 @@ window.addEventListener("DOMContentLoaded", (e) => {
             timer: 0,
             valueProgress: 1,
 
-            
-            
+            soundTime: document.getElementById('timeSound'),
+            soundSelectChamp: document.getElementById('validInscription'),
         },
 
         methods: {
@@ -98,6 +98,10 @@ window.addEventListener("DOMContentLoaded", (e) => {
                     document.getElementById('progressBar').classList.remove('reduceProgressBarSelection');
                     clearInterval(this.reduceTime);
                 }
+                else if(this.timer < 10){
+                    this.soundTime.play();
+                    this.timer--;
+                }
                 else{
                     this.timer--;
                 }
@@ -111,6 +115,7 @@ window.addEventListener("DOMContentLoaded", (e) => {
             playerSelectionFunction: function() {
 
                 socket.emit('confirmChamp', this.selectedChampion, this.account);
+                this.soundSelectChamp.play();
             },
 
 
@@ -130,9 +135,7 @@ window.addEventListener("DOMContentLoaded", (e) => {
                 };
                 socket.emit('thinkChamp', this.selectedChampion, this.account);
             },
-
-
-            
+        
 
         },
 
@@ -238,7 +241,6 @@ window.addEventListener("DOMContentLoaded", (e) => {
                 document.getElementById('imgSelectedChampion').classList.add('animationImgSelectedChampion');
 
                 setTimeout(() => {
-                    clearTimeout(this.timeOut);
                     this.imgSelectedChampion = "";
                     document.getElementById('imgSelectedChampion').classList.remove('animationImgSelectedChampion');
                 }, 2000);

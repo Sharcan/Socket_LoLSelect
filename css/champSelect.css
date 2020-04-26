@@ -121,10 +121,11 @@
     top: 0%;
     left: 0%;
     width: 100%;
+    z-index: 1000;
 }
 
 .animationImgSelectedChampion{
-    animation: selectedChampion 0.50s linear;
+    animation: selectedChampion 0.50s ease-out;
 }
 
 @keyframes selectedChampion{
