@@ -243,7 +243,7 @@ window.addEventListener("DOMContentLoaded", (e) => {
                 setTimeout(() => {
                     this.imgSelectedChampion = "";
                     document.getElementById('imgSelectedChampion').classList.remove('animationImgSelectedChampion');
-                }, 2000);
+                }, 1500);
                 
             });
 
@@ -253,7 +253,7 @@ window.addEventListener("DOMContentLoaded", (e) => {
                 this.messageTop = "Lancement de la partie";
                 setTimeout(() => {
                     window.location.href = 'http://192.168.1.129:8080/game';
-                }, 2000);
+                }, 7000);
             });
         },
 

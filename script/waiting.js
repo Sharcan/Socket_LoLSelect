@@ -20,7 +20,7 @@ var app = new Vue({
         timer: 5,
         maxPlayer: 2,
 
-        soundTime: document.getElementById('timeSound')
+        soundTime: document.getElementById('timeSound'),
     },
 
     methods: {
