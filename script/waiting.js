@@ -100,9 +100,12 @@ var app = new Vue({
         timerFunction: function(dirname) {
 
             if(this.timer === 0){
-                window.location.href = 'http://192.168.1.129:8080/champSelect';
+                window.location.href = '/champSelect';
             }
             else {
+                
+
+                console.log('Hey : ' + dirname);
                 this.soundTime.play();
                 this.timer--;
             }
@@ -112,6 +115,10 @@ var app = new Vue({
         playSoundInscription: function() {
             let inscriptionSound = document.getElementById('validInscription');
             inscriptionSound.play();
+        },
+
+        maxPlayerFunction: function(){
+            socket.emit('maxPlayer', this.maxPlayer);
         }
     },
 
@@ -149,12 +156,15 @@ var app = new Vue({
 
             sessionStorage.setItem('pseudo', content.pseudo);
             sessionStorage.setItem('team', content.team);
-            ;
 
         });
 
         socket.on('saveLocal', (content) => {
             localStorage.setItem('accounts', JSON.stringify(content));
+        });
+
+        socket.on('maxPlayer', (maxPlayer) => {
+            this.maxPlayer = maxPlayer;
         });
         
     },

@@ -5,7 +5,7 @@
     "node": "12.13.0"
   },
   "description": "Reproduction lol selection",
-  "main": "index.js",
+  "main": "server.js",
   "scripts": {
     "start": "nodemon server.js"
   },

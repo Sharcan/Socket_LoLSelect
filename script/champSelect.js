@@ -32,26 +32,6 @@ window.addEventListener("DOMContentLoaded", (e) => {
 
         methods: {
 
-            
-            // waitingAll: function() {
-                
-            //     if(this.timer === 0) {
-                    
-            //         if(this.players[0].pseudo === this.account.pseudo){
-            //             setTimeout(() => {
-            //                 socket.emit('launchSelection', this.listLeft, this.listRight);
-            //             }, 1000);
-            //         }
-
-            //         document.getElementById('progressBar').classList.remove('reduceProgressBar');
-            //         clearInterval(this.waitingOther);
-
-            //         this.displayChamp = true;
-            //     }
-            //     else {
-            //         this.timer--;
-            //     }
-            // },
 
             getAllChamp: function() {
 
@@ -59,14 +39,14 @@ window.addEventListener("DOMContentLoaded", (e) => {
                 mode: 'cors',
                 cache: 'default' };
 
-                fetch('http://ddragon.leagueoflegends.com/cdn/10.8.1/data/fr_FR/champion.json', myInit)
+                fetch('https://ddragon.leagueoflegends.com/cdn/10.8.1/data/fr_FR/champion.json', myInit)
                     .then((response) => response.json())
                     .then((data) => {
                         const listChamp = Object.values(data.data);
                         let index = 0;
                         listChamp.forEach(champion => {
 
-                            this.champions.push({index: index, name: champion.name, avatar: 'http://ddragon.leagueoflegends.com/cdn/10.8.1/img/champion/' + champion.image.full});
+                            this.champions.push({index: index, name: champion.name, avatar: 'https://ddragon.leagueoflegends.com/cdn/10.8.1/img/champion/' + champion.image.full});
                             index++;
                         });
 
@@ -204,6 +184,7 @@ window.addEventListener("DOMContentLoaded", (e) => {
                     this.timeOut = setTimeout(() => {
                         this.displayChamp = false;
                         socket.emit('finishTurn', this.listLeft, this.listRight, {team: index.team, index: index.index});
+                        socket.emit('confirmChamp', this.selectedChampion, this.account);
                     }, 32000);
                 }
             
@@ -252,7 +233,7 @@ window.addEventListener("DOMContentLoaded", (e) => {
             socket.on('FINISH', ()=> {
                 this.messageTop = "Lancement de la partie";
                 setTimeout(() => {
-                    window.location.href = 'http://192.168.1.129:8080/game';
+                    window.location.href = '/game';
                 }, 7000);
             });
         },

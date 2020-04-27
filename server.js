@@ -123,6 +123,11 @@ io.on('connection', (socket) => {
 
     });
 
+
+    socket.on('maxPlayer', (maxPlayer) => {
+        socket.broadcast.emit('maxPlayer', maxPlayer);
+    });
+
     // -----------------CHAMPION SELECTION ---------------------
     
 
@@ -176,7 +181,6 @@ io.on('connection', (socket) => {
                 socket.broadcast.emit('yourTurn', listR[allR], {team: 'allR', index: allR});
             }
             else{
-                console.log('FINISH');
             }
         }
     }
@@ -190,7 +194,7 @@ io.on('connection', (socket) => {
     socket.on('confirmChamp', (champion, account) => {
         socket.broadcast.emit('confirmChamp', champion, account);
         socket.emit('confirmChamp', champion, account);
-    })
+    });
 
 });
 
