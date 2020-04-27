@@ -143,7 +143,11 @@
 }
 
 .animationImgSelectedChampion{
-    animation: selectedChampion 0.50s ease-out;
+    animation: selectedChampion 0.35s ease-out;
+}
+
+.selectImage{
+    z-index: 0.5;
 }
 
 @keyframes selectedChampion{

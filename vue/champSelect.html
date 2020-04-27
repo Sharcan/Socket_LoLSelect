@@ -17,7 +17,9 @@
 
                 <v-container fluid class="main" id="main">
 
-                    <img :src="imgSelectedChampion" alt="" v-show="imgSelectedChampion" class="imgSelectedChampion" id="imgSelectedChampion">
+                    <div class="selectImage">
+                        <img :src="imgSelectedChampion" alt="" v-show="imgSelectedChampion" class="imgSelectedChampion" id="imgSelectedChampion">
+                    </div>
 
                     <v-row class="justify-space-around flex-row top">
                         <h1 class="white--text display-1" v-text="messageTop"></h1>
